@@ -3,13 +3,16 @@ package com.mechgames.engine.gfx;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Image {
     private final int w, h;
     private final int[] p;
     private boolean alpha = false;
+    private static final Map<String, Image> imageMap = new HashMap<>();
 
-    public Image(String path) {
+    Image(String path) {
         BufferedImage image;
         try {
             image = ImageIO.read(Image.class.getResourceAsStream("/"+path));
@@ -44,5 +47,12 @@ public class Image {
 
     public void setAlpha(boolean alpha) {
         this.alpha = alpha;
+    }
+
+    public static Image load(String path) {
+//        if(imageMap.containsKey(path)) {
+//            return imageMap.get(path);
+//        }
+        return imageMap.computeIfAbsent(path, Image::new);
     }
 }

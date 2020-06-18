@@ -10,7 +10,7 @@ public class Font {
     private final int imageHeight;
 
     public Font(String path) {
-        Image image = new Image(path);
+        Image image = Image.load(path);
         offsets = new int[100];
         widths = new int[100];
 

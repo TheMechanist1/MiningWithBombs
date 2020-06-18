@@ -13,6 +13,9 @@ public class Renderer {
     private byte[] zBuffer;
     private byte depth = 0;
 
+    private int translateX = 0;
+    private int translateY = 0;
+
     private final Font STANDARD_FONT = Font.STANDARD;
 
     Engine engine;
@@ -25,6 +28,8 @@ public class Renderer {
         this.engine = engine;
     }
 
+
+
     public void clear() {
         for (int i = 0; i < p.length; i++) {
             p[i] = 0;
@@ -32,9 +37,16 @@ public class Renderer {
         }
     }
 
-    public void setPixel(int x, int y, int value) {
-        int alpha = (value >> 24 & 0xff);
+    public void translate(int x, int y) {
+        translateX += x;
+        translateY += y;
+    }
 
+    public void setPixel(int x, int y, int value) {
+        x = x + translateX;
+        y = y + translateY;
+
+        int alpha = (value >> 24 & 0xff);
         /*
 
         0xffffff
@@ -215,4 +227,6 @@ public class Renderer {
     public void setDepth(byte depth) {
         this.depth = depth;
     }
+
+
 }

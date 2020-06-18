@@ -1,24 +1,16 @@
 package com.mechgames.engine.Math;
 
-public class Vector2d {
-    private int intX, intY;
-    private double doubleX, doubleY;
-    private boolean isInt = false;
-    private boolean isDouble = false;
+import java.util.Objects;
 
-    public Vector2d(int intX, int intY) {
-        isInt = true;
-        this.intX = intX;
-        this.intY = intY;
-    }
+public class Vector2d {
+    private double doubleX, doubleY;
 
     public Vector2d(double doubleX, double doubleY) {
-        isDouble = true;
         this.doubleX = doubleX;
         this.doubleY = doubleY;
     }
 
-    public double getDoubleX() {
+    public double getX() {
         return doubleX;
     }
 
@@ -26,7 +18,7 @@ public class Vector2d {
         this.doubleX = doubleX;
     }
 
-    public double getDoubleY() {
+    public double getY() {
         return doubleY;
     }
 
@@ -34,30 +26,27 @@ public class Vector2d {
         this.doubleY = doubleY;
     }
 
-    public int getIntX() {
-        return intX;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector2d vector2d = (Vector2d) o;
+        return Double.compare(vector2d.doubleX, doubleX) == 0 &&
+                Double.compare(vector2d.doubleY, doubleY) == 0;
     }
 
-    public void setX(int intX) {
-        this.intX = intX;
+    @Override
+    public int hashCode() {
+        return Objects.hash(doubleX, doubleY);
     }
 
-    public int getIntY() {
-        return intY;
-    }
-
-    public void setY(int intY) {
-        this.intY = intY;
+    public void add(Vector2d v2d) {
+        this.setX(this.getX() + v2d.getX());
+        this.setY(this.getY() + v2d.getY());
     }
 
     public String toString() {
-        if(isInt) {
-            return "[" + getIntX() + ", " + getIntY() + "]";
-        } else if(isDouble) {
-            return "[" + getDoubleX() + ", " + getDoubleY() + "]";
-        } else {
-            return "It should be impossible to get here but if it does, add 1 to this number: 0";
-        }
+        return "[" + getX() + ", " + getY() + "]";
     }
 
 }

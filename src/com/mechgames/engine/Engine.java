@@ -10,13 +10,14 @@ public class Engine {
     private boolean running = false;
     private final double UPDATES_PER_SECOND = 1.0/60.0;
 
-    private int width = 300, height = 300;
-    private float scale = 3f;
+    private int width = 800, height = 800;
+    private float scale = 1f;
     private String title = "";
 
 
     public Engine(AbstractGame game) {
         this.game = game;
+        game.setEngine(this);
     }
 
     public void start() {
@@ -41,7 +42,7 @@ public class Engine {
         double frames = 0;
 
         while(running) {
-            render = false;
+            render = true;
             firstTime = System.nanoTime()/1000000000.0;
             passedTime = firstTime - lastTime;
             lastTime = firstTime;
@@ -53,7 +54,7 @@ public class Engine {
                 unprocessedTime -= UPDATES_PER_SECOND;
                 render = true;
 
-                game.update(this, (float) UPDATES_PER_SECOND);
+                game.update((float) UPDATES_PER_SECOND);
 
                 input.update();
 
@@ -66,7 +67,7 @@ public class Engine {
 
             if(render) {
                 renderer.clear();
-                game.render(this, renderer);
+                game.render(renderer);
                 renderer.drawString("FPS: " + fps, 0, 0, 0xffffffff);
                 window.update();
                 frames++;
