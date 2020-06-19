@@ -28,8 +28,6 @@ public class Renderer {
         this.engine = engine;
     }
 
-
-
     public void clear() {
         for (int i = 0; i < p.length; i++) {
             p[i] = 0;
@@ -47,33 +45,6 @@ public class Renderer {
         y = y + translateY;
 
         int alpha = (value >> 24 & 0xff);
-        /*
-
-        0xffffff
-
-        0b11111111111111111111111111111111
-          AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB
-
-        0b00000000000000001111111111111111 >> 16
-                          AAAAAAAARRRRRRRR
-
-        0b00000000000000001111111111111111 & 0xff
-        0b00000000000000001111111111111111 & 0b11111111
-
-        0b00000000000000001111111111111111
-        0b00000000000000000000000011111111
-
-        0b11111111 = A
-        0b10101010 = R
-        0b01010101 = G
-        0b11111111 = B
-
-        0b11111111000000000000000000000000 |
-        0b00000000101010100000000000000000 |
-        0b00000000000000000101010100000000 |
-        0b00000000000000000000000011111111 =
-        0b11111111101010100101010111111111
-        */
 
         if ((x < 0 || x >= pW || y < 0 || y >= pH) || alpha == 0) return;
 
@@ -137,55 +108,30 @@ public class Renderer {
     }
 
     public void drawImage(Image image, int offsetX, int offsetY) {
-        if(offsetX < -image.getW()) return;
-        if(offsetY < -image.getH()) return;
-        if(offsetX >= pW) return;
-        if(offsetY >= pH) return;
+        int width = image.getW();
+        int height = image.getH();
 
-        int newX = 0;
-        int newY = 0;
-        int newWidth = image.getW();
-        int newHeight = image.getH();
-
-        if(offsetX < 0) { newX -= offsetX; }
-        if(offsetY < 0) { newY -= offsetY; }
-        if(newWidth + offsetX >= pW) { newWidth -= (newWidth + offsetX - pW); }
-        if(newHeight + offsetY >= pH) { newHeight -= (newHeight + offsetY - pH); }
-
-        for (int x = newX; x < newWidth; x += 15) {
-            for (int x2 = x; x2 < Math.min(newWidth, x + 15); x2++) {
-                for (int y = newY; y < newHeight; y++) {
-                    setPixel(x2 + offsetX,y + offsetY,image.getP()[x2+y*image.getW()]);
+        for (int x = 0; x < width; x += 15) {
+            for (int x2 = x; x2 < Math.min(width, x + 15); x2++) {
+                for (int y = 0; y < height; y++) {
+                    setPixel(x2 + offsetX, y + offsetY, image.getP()[x2 + y * image.getW()]);
                 }
             }
         }
     }
 
     public void drawTileImage(ImageTile imageTile, int offsetX, int offsetY, int tileX, int tileY) {
-        if(offsetX < -imageTile.getTileWidth()) return;
-        if(offsetY < -imageTile.getTileHeight()) return;
-        if(offsetX >= pW) return;
-        if(offsetY >= pH) return;
+        int width = imageTile.getTileWidth();
+        int height = imageTile.getTileHeight();
 
-        int newX = 0;
-        int newY = 0;
-        int newWidth = imageTile.getTileWidth();
-        int newHeight = imageTile.getTileHeight();
-
-        if(offsetX < 0) { newX -= offsetX; }
-        if(offsetY < 0) { newY -= offsetY; }
-        if(newWidth + offsetX >= pW) { newWidth -= (newWidth + offsetX - pW); }
-        if(newHeight + offsetY >= pH) { newHeight -= (newHeight + offsetY - pH); }
-
-        for (int x = newX; x < newWidth; x++) {
-            for (int y = newY; y < newHeight; y++) {
-                setPixel(x + offsetX,y + offsetY,imageTile.getP()[(x + tileX * imageTile.getTileWidth()) + (y + tileY * imageTile.getTileHeight()) * imageTile.getW()]);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                setPixel(x + offsetX, y + offsetY, imageTile.getP()[(x + tileX * imageTile.getTileWidth()) + (y + tileY * imageTile.getTileHeight()) * imageTile.getW()]);
             }
         }
     }
 
     public void drawRect(int offsetX, int offsetY, int width, int height, int color) {
-
         for (int y = 0; y <= height ; y++) {
             setPixel(offsetX, y + offsetY, color);
             setPixel(offsetX + width, y + offsetY, color);
@@ -198,23 +144,8 @@ public class Renderer {
     }
 
     public void drawFillRect(int offsetX, int offsetY, int width, int height, int color) {
-        if(offsetX < -width) return;
-        if(offsetY < -height) return;
-        if(offsetX >= pW) return;
-        if(offsetY >= pH) return;
-
-        int newX = 0;
-        int newY = 0;
-        int newWidth = width;
-        int newHeight = height;
-
-        if(offsetX < 0) { newX -= offsetX; }
-        if(offsetY < 0) { newY -= offsetY; }
-        if(newWidth + offsetX >= pW) { newWidth -= (newWidth + offsetX - pW); }
-        if(newHeight + offsetY >= pH) { newHeight -= (newHeight + offsetY - pH); }
-
-        for (int y = newY; y <= newHeight ; y++) {
-            for (int x = newX; x <= newWidth ; x++) {
+        for (int y = 0; y <= height; y++) {
+            for (int x = 0; x <= width; x++) {
                 setPixel(x + offsetX, y + offsetY, color);
             }
         }

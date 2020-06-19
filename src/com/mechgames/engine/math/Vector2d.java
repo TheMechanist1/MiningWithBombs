@@ -1,29 +1,29 @@
-package com.mechgames.engine.Math;
+package com.mechgames.engine.math;
 
 import java.util.Objects;
 
 public class Vector2d {
-    private double doubleX, doubleY;
+    private double x, y;
 
-    public Vector2d(double doubleX, double doubleY) {
-        this.doubleX = doubleX;
-        this.doubleY = doubleY;
+    public Vector2d(double x, double y) {
+        this.x = x;
+        this.y = y;
     }
 
     public double getX() {
-        return doubleX;
+        return x;
     }
 
-    public void setX(double doubleX) {
-        this.doubleX = doubleX;
+    public void setX(double x) {
+        this.x = x;
     }
 
     public double getY() {
-        return doubleY;
+        return y;
     }
 
-    public void setY(double doubleY) {
-        this.doubleY = doubleY;
+    public void setY(double y) {
+        this.y = y;
     }
 
     @Override
@@ -31,13 +31,13 @@ public class Vector2d {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vector2d vector2d = (Vector2d) o;
-        return Double.compare(vector2d.doubleX, doubleX) == 0 &&
-                Double.compare(vector2d.doubleY, doubleY) == 0;
+        return Double.compare(vector2d.x, x) == 0 &&
+                Double.compare(vector2d.y, y) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(doubleX, doubleY);
+        return Objects.hash(x, y);
     }
 
     public void add(Vector2d v2d) {

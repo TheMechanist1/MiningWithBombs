@@ -1,6 +1,6 @@
 package com.mechgames.game.tile;
 
-import com.mechgames.engine.Math.Vector2d;
+import com.mechgames.engine.math.Vector2d;
 
 import java.util.ArrayList;
 import java.util.HashMap;

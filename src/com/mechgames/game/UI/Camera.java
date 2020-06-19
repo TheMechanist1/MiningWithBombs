@@ -1,6 +1,6 @@
 package com.mechgames.game.UI;
 
-import com.mechgames.engine.Math.Vector2d;
+import com.mechgames.engine.math.Vector2d;
 import com.mechgames.game.MiningWithBombs;
 
 public class Camera {
