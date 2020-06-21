@@ -4,9 +4,7 @@ import com.mechgames.engine.gfx.Font;
 import com.mechgames.engine.gfx.Image;
 import com.mechgames.engine.gfx.ImageTile;
 
-import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.ArrayList;
 
 public class Renderer {
 
@@ -42,35 +40,35 @@ public class Renderer {
         translateY += y;
     }
 
-    public static Image tileImageToImage(ImageTile imageTile, int imageX, int imageY) {
-        int width = imageTile.getTileWidth();
-        int height = imageTile.getTileHeight();
-
-        ArrayList<Byte> imageData = new ArrayList<>();
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                imageData.add((byte) (imageTile.getP()[(x + imageX * imageTile.getTileWidth()) + (y + imageY * imageTile.getTileHeight()) * imageTile.getW()]));
-            }
-        }
-
-        byte[] bytes = new byte[imageData.size()];
-
-        BufferedImage bImageFromConvert = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-
-        for (int i = 0; i < imageData.size(); i++) {
-            bytes[i] = imageData.get(i);
-        }
-
-        for (int y = 0, pos = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                bImageFromConvert.getRaster().setSample(x, y, 0, bytes[pos]);
-            }
-        }
-
-        return Image.load(bImageFromConvert);
-
-    }
+//    public static Image tileImageToImage(ImageTile imageTile, int imageX, int imageY) {
+//        int width = imageTile.getTileWidth();
+//        int height = imageTile.getTileHeight();
+//
+//        ArrayList<Byte> imageData = new ArrayList<>();
+//
+//        for (int x = 0; x < width; x++) {
+//            for (int y = 0; y < height; y++) {
+//                imageData.add((byte) (imageTile.getP()[(x + imageX * imageTile.getTileWidth()) + (y + imageY * imageTile.getTileHeight()) * imageTile.getW()]));
+//            }
+//        }
+//
+//        byte[] bytes = new byte[imageData.size()];
+//
+//        BufferedImage bImageFromConvert = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+//
+//        for (int i = 0; i < imageData.size(); i++) {
+//            bytes[i] = imageData.get(i);
+//        }
+//
+//        for (int y = 0, pos = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                bImageFromConvert.getRaster().setSample(x, y, 0, bytes[pos]);
+//            }
+//        }
+//
+//        return Image.load(bImageFromConvert);
+//
+//    }
 
     public void drawString(String string, int startX, int startY, int color) {
 //        TODO: Make lowercase letters

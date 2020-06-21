@@ -45,14 +45,6 @@ public class Vector2d {
         this.setY(this.getY() + v2d.getY());
     }
 
-    public Vector2d multiply(double x, double y) {
-        return new Vector2d(getX() * x, getY() * y);
-    }
-
-    public Vector2d divide(double x, double y) {
-        return new Vector2d(getX() / x, getY() / y);
-    }
-
     public String toString() {
         return "[" + getX() + ", " + getY() + "]";
     }

@@ -5,11 +5,9 @@ import com.mechgames.engine.Renderer;
 import com.mechgames.engine.gfx.ImageTile;
 import com.mechgames.engine.math.Vector2d;
 import com.mechgames.game.MiningWithBombs;
-import com.mechgames.game.tile.AirTile;
 import com.mechgames.game.tile.Tile;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 
 
 public class Player extends Entity {
@@ -18,12 +16,14 @@ public class Player extends Entity {
     private boolean onGroundLastFrame = false;
     private ImageTile imageMap = new ImageTile("textures/entities/playerImageMap.png", 7, 14);
 
+
     private boolean left = false, right = false, up = false, down = false;
     private double time = 0;
 
     public Player(Vector2d position) {
         super(position, null);
-        this.setEntityImage(Renderer.tileImageToImage(imageMap, 0, 0));
+        this.setWidth(7);
+        this.setHeight(14);
     }
 
     public void update() {
@@ -33,21 +33,7 @@ public class Player extends Entity {
 
         Tile tile;
 
-        if (input.isButton(MouseEvent.BUTTON1)) {
-            Tile toRemove = null;
 
-            for (Tile t : MiningWithBombs.instance.generator.getTileList().getTiles()) {
-                if (t.isIntersecting(input.getMouseX() + MiningWithBombs.instance.cam.getPosition().getX(), input.getMouseY() + MiningWithBombs.instance.cam.getPosition().getY(), 1, 1)) {
-                    toRemove = t;
-                    break;
-                }
-            }
-
-            if (toRemove != null) {
-                MiningWithBombs.instance.generator.placeTile(new AirTile(toRemove.getPosition()));
-                MiningWithBombs.instance.generator.removeTile(toRemove);
-            }
-        }
 
         if (input.isKey(KeyEvent.VK_A)) {
             getVelocity().setX(getVelocity().getX() - 1.0);
@@ -85,7 +71,7 @@ public class Player extends Entity {
             if (getVelocity().getX() < 0.0) getPosition().setX(tile.getPosition().getX() + 16); //left
 
             if (getVelocity().getX() > 0.0)
-                getPosition().setX(tile.getPosition().getX() - this.getEntityImage().getW()); //right
+                getPosition().setX(tile.getPosition().getX() - this.getWidth()); //right
 
             getVelocity().setX(0);
         }
@@ -97,7 +83,7 @@ public class Player extends Entity {
             if (getVelocity().getY() < 0.0) getPosition().setY(tile.getPosition().getY() + 16);
 
             if (getVelocity().getY() > 0.0) {
-                getPosition().setY(tile.getPosition().getY() - this.getEntityImage().getH());
+                getPosition().setY(tile.getPosition().getY() - this.getHeight());
                 onGroundLastFrame = true;
             }
             getVelocity().setY(0);
