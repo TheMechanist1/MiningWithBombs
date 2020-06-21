@@ -10,24 +10,19 @@ import com.mechgames.game.tile.Tile;
 public class Entity {
     private Image entityImage;
     private Vector2d position;
-    private Vector2d velocity;
-    private boolean onGround = false;
+    private Vector2d velocity = new Vector2d(0, 0);
 
     public Entity(Vector2d position, Image entityImage) {
         this.position = position;
         this.entityImage = entityImage;
     }
 
-    public boolean isOnGround() {
-        return onGround;
-    }
-
-    public void setOnGround(boolean onGround) {
-        this.onGround = onGround;
-    }
-
     public Vector2d getPosition() {
         return position;
+    }
+
+    public Vector2d getVelocity() {
+        return velocity;
     }
 
     public void render(Renderer renderer) {
@@ -36,7 +31,7 @@ public class Entity {
 
     public Tile collidingWorld() {
         for (Tile tile : MiningWithBombs.instance.generator.getTileList().getTiles()) {
-            if (tile.isCollidable() && tile.isIntersecting((int) position.getX(), (int) position.getY(), getEntityImage().getW(), getEntityImage().getH())) {
+            if (tile.isCollidable() && tile.isIntersecting(position.getX(), position.getY(), getEntityImage().getW(), getEntityImage().getH())) {
                 return tile;
             }
         }
@@ -56,5 +51,9 @@ public class Entity {
 
     public Image getEntityImage() {
         return entityImage;
+    }
+
+    public void setEntityImage(Image entityImage) {
+        this.entityImage = entityImage;
     }
 }

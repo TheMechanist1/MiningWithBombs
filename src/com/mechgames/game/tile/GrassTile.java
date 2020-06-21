@@ -5,6 +5,6 @@ import com.mechgames.engine.math.Vector2d;
 
 public class GrassTile extends Tile{
     public GrassTile(Vector2d vector2d) {
-        super(vector2d, Image.load("sprites/grassTile.png"));
+        super(vector2d, Image.load("textures/tiles/grassTile.png"));
     }
 }

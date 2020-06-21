@@ -47,7 +47,7 @@ public class Tile {
                 this.position.getY() + tileImage.getH() > v2d.getY();
     }
 
-    public boolean isIntersecting(int otherX, int otherY, int otherWidth, int otherHeight) {
+    public boolean isIntersecting(double otherX, double otherY, double otherWidth, double otherHeight) {
         return this.position.getX() < otherX + otherWidth &&
                 this.position.getX() + tileImage.getW() > otherX &&
                 this.position.getY() < otherY + otherHeight &&

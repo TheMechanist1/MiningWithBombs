@@ -42,8 +42,8 @@ public class Engine {
         double frames = 0;
 
         while(running) {
-            render = true;
-            firstTime = System.nanoTime()/1000000000.0;
+            render = false;
+            firstTime = System.nanoTime() / 1000000000.0;
             passedTime = firstTime - lastTime;
             lastTime = firstTime;
 

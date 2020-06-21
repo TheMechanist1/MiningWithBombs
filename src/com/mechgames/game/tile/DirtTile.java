@@ -5,6 +5,6 @@ import com.mechgames.engine.math.Vector2d;
 
 public class DirtTile extends Tile{
     public DirtTile(Vector2d vector2d) {
-        super(vector2d, Image.load("sprites/dirtTile.png"));
+        super(vector2d, Image.load("textures/tiles/dirtTile.png"));
     }
 }
